@@ -1,0 +1,26 @@
+{
+  "name": "xes-cli",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "bin": {
+    "xes": "./bin/xes"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lsxlsxxslxsl/xes-cli.git"
+  },
+  "keywords": [
+    "cli",
+    "xes"
+  ],
+  "author": "liusixin",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lsxlsxxslxsl/xes-cli/issues"
+  },
+  "homepage": "https://github.com/lsxlsxxslxsl/xes-cli#readme"
+}
