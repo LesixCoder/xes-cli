@@ -1,2 +1,30 @@
 #!/usr/bin/env node
-const program = require("commander");
+const command = require("commander");
+const figlet = require('figlet');
+const Printer = require('@darkobits/lolcatjs');
+const chalk = require('chalk');
+
+const pkg = require('../package')
+const versionText = figlet.textSync('XES');
+
+command.version(Printer.default.fromString(`${versionText}\nauthor: liusixin<fordreamxkhl@gmail.com>\nversion: ${pkg.version}`), "-v, --version");
+command.option("-i, --init", "初始化项目");
+
+const bindHandler = {
+  init () {
+    console.log('初始化程序执行')
+  }
+}
+command.usage("[cmd] <options>")
+  //init 和init不一样
+  .arguments("<cmd> [env]")
+  .action(function (cmd, otherParams) {
+    const handler = bindHandler[cmd];
+    if (typeof handler === "undefined") {
+      console.error(chalk.yellow('抱歉，') + chalk.red(cmd) + chalk.yellow(' 暂未实现'));
+    } else {
+      handler(otherParams);
+    }
+  });
+
+command.parse(process.argv);

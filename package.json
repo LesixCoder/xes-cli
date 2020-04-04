@@ -22,5 +22,12 @@
   "bugs": {
     "url": "https://github.com/lsxlsxxslxsl/xes-cli/issues"
   },
-  "homepage": "https://github.com/lsxlsxxslxsl/xes-cli#readme"
+  "homepage": "https://github.com/lsxlsxxslxsl/xes-cli#readme",
+  "devDependencies": {
+    "@darkobits/lolcatjs": "^3.1.3",
+    "chalk": "^4.0.0",
+    "commander": "^5.0.0",
+    "figlet": "^1.3.0",
+    "inquirer": "^7.1.0"
+  }
 }
