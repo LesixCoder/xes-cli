@@ -3,18 +3,72 @@ const command = require("commander");
 const figlet = require('figlet');
 const Printer = require('@darkobits/lolcatjs');
 const chalk = require('chalk');
+const inquirer = require('inquirer');
+const shelljs = require('shelljs');
+const ora = require('ora');
+const json2ts = require("json2ts");
+const download = require("download-git-repo");
 
 const pkg = require('../package')
 const versionText = figlet.textSync('XES');
+
+// 项目模板
+const template = "direct:https://github.com/lsxlsxxslxsl/vue-standard-template.git";
 
 command.version(Printer.default.fromString(`${versionText}\nauthor: liusixin<fordreamxkhl@gmail.com>\nversion: ${pkg.version}`), "-v, --version");
 command.option("-i, --init", "初始化项目");
 
 const bindHandler = {
-  init () {
-    console.log('初始化程序执行')
+  init (otherParams) {
+    console.log("进入初始化节点...");
+    inquirer
+      .prompt([
+        {
+          type: "text",
+          message: "1️⃣ 请输入文件夹的名称",
+          name: "dirname"
+        },
+        {
+          type: "list",
+          name: "jskind",
+          message: "2️⃣  请选择使用语言",
+          choices: ["✔ TypeScript", "✔ EcmaScript6"]
+        }
+      ])
+      .then(answers => {
+        console.log("获取到用户输入", answers);
+        const _pwddir = shelljs.pwd().stdout;
+        const projectPath = `${_pwddir}/${answers.dirname}`;
+        console.log("用户的全路径", projectPath);
+        shelljs.rm("-rf", projectPath);
+        shelljs.mkdir(projectPath);
+        const spinner = ora('downloading template....');
+        spinner.start();
+        download(template, projectPath, { clone: true }, err => {
+          spinner.stop();
+          if (err) {
+            console.log("下载失败");
+          } else {
+            shelljs.sed("-i", "vue-standard-template", answers.dirname, projectPath + "/package.json");
+            console.log(chalk.green("👩‍✈️项目创建成功Enjoy Development"));
+          }
+        })
+      }).catch(function (error) {
+        console.log("👩‍✈️xes-cli启动异常");
+      });
+  },
+  js2ts (otherParams) {
+    const testData = {
+      name: "liusixin",
+      data: {
+        age: 30
+      }
+    }
+    const jsonContent = JSON.stringify(testData);
+    let result = json2ts.convert(jsonContent);
+    console.log(result);
   }
-}
+};
 command.usage("[cmd] <options>")
   //init 和init不一样
   .arguments("<cmd> [env]")
