@@ -4,7 +4,12 @@
   "description": "",
   "main": "index.js",
   "bin": {
-    "xes": "./bin/xes"
+    "xes": "./bin/xes",
+    "xr": "./bin//xr",
+    "xr-add": "bin/xr-add",
+    "xr-delete": "bin/xr-delete",
+    "xr-list": "bin/xr-list",
+    "xr-init": "bin/xr-init"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
